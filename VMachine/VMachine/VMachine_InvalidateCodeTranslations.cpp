@@ -27,7 +27,7 @@ void VMachine::InvalidateCodeTranslations(	Dword startAddress, Dword endAddress,
 					//If so, is this simply a patching of an immediate dword?
 					if(endAddress - startAddress == 4)
 					{
-						stdext::hash_map<Dword, Dword>::const_iterator immDwordIt =
+						auto immDwordIt =
 							translation->second->immDwordOffsets.find(
 								startAddress - translation->first.physicalEip);
 
@@ -92,7 +92,7 @@ void VMachine::InvalidateCodeTranslations(	Dword startAddress, Dword endAddress,
 				{
 					if(endAddress - startAddress == 4)
 					{
-						stdext::hash_map<Dword, Dword>::const_iterator immDwordIt =
+						auto immDwordIt =
 							translation->second->immDwordOffsets.find(
 								startAddress - translation->first.physicalEip);
 
@@ -116,7 +116,7 @@ void VMachine::InvalidateCodeTranslations(	Dword startAddress, Dword endAddress,
 					if(	translation->first.physicalEip < endAddress &&
 						translation->second->endPhysicalEip >= startAddress)
 					{
-						stdext::hash_map<Dword, Dword>::const_iterator immDwordIt =
+						auto immDwordIt =
 							translation->second->immDwordOffsets.find(
 								startAddress - translation->first.physicalEip);
 

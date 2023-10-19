@@ -36,12 +36,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 			throw std::exception("Hard drive image (-hdimg argument) not specified.");
 
 		//Create the VMachine
-		boost::shared_ptr<VMachine> vmachine(
+		std::shared_ptr<VMachine> vmachine(
 			new VMachine(memorySize * 1024 * 1024,
 				fdimgFilename, hdimgFilename));
 
 		//Create a window
-		boost::shared_ptr<Window> window(new Window(vmachine, 720, 400));
+		std::shared_ptr<Window> window(new Window(vmachine, 720, 400));
 
 		//Message loop
 		MSG msg;

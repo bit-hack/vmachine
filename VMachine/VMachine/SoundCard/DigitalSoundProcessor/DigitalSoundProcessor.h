@@ -10,7 +10,7 @@
 class Pic;
 class DmaController;
 
-class DigitalSoundProcessor : private boost::noncopyable
+class DigitalSoundProcessor
 {
 public:
 

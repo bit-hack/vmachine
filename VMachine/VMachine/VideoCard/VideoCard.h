@@ -7,7 +7,7 @@
 
 #pragma once
 
-class VideoCard : private boost::noncopyable
+class VideoCard
 {
 public:
 

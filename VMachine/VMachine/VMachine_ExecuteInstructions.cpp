@@ -211,7 +211,7 @@ void VMachine::ExecuteInstructions(void)
 			if(translationCacheable)
 			{
 				//Add it to the eipToTranslationCacheMap, TLBs and the page translation list
-				boost::shared_ptr <EipToTranslationCacheMapValue> value(
+				std::shared_ptr <EipToTranslationCacheMapValue> value(
 					new EipToTranslationCacheMapValue);
 				value->translation = translation;
 				bool endPhysicalEipOK = CalculatePhysicalAddress(registers->r_cs.base + r_eip - 1, value->endPhysicalEip);

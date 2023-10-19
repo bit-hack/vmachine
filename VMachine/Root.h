@@ -7,11 +7,12 @@
 
 #pragma once
 
+#include <cstdint>
 #include <cassert>
 #include <deque>
 #include <exception>
 #include <fstream>
-#include <hash_map>
+#include <unordered_map>
 #include <iomanip>
 #include <list>
 #include <map>
@@ -19,6 +20,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #define NOMINMAX
 #include <windows.h>
@@ -27,26 +29,18 @@
 #include <d3d9.h>
 #include <dsound.h>
 
-#include <boost\cstdint.hpp>
-#include <boost\lexical_cast.hpp>
-#include <boost\noncopyable.hpp>
-#include <boost\scoped_array.hpp>
-#include <boost\scoped_ptr.hpp>
-#include <boost\shared_ptr.hpp>
-
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "dsound.lib")
 #pragma comment(lib, "dxguid.lib")
 
-typedef boost::uint8_t Byte;
-typedef boost::uint16_t Word;
-typedef boost::uint32_t Dword;
-typedef boost::uint64_t Qword;
-
-typedef boost::int8_t SignedByte;
-typedef boost::int16_t SignedWord;
-typedef boost::int32_t SignedDword;
-typedef boost::int64_t SignedQword;
+typedef uint8_t  Byte;
+typedef uint16_t Word;
+typedef uint32_t Dword;
+typedef uint64_t Qword;
+typedef int8_t   SignedByte;
+typedef int16_t  SignedWord;
+typedef int32_t  SignedDword;
+typedef int64_t  SignedQword;
 
 const double M_PI = 3.1415926535897932384626433832795;
 

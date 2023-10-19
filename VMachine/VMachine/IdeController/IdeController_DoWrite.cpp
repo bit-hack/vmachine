@@ -21,7 +21,7 @@ void IdeController::DoWrite(Word numSectors)
 	//TODO: Overlapped I/O
 	SetFilePointer(hdImageFile, imageFileOffset, 0, FILE_BEGIN);
 
-	Dword numBytesWritten;
+	DWORD numBytesWritten;
 	WriteFile(	hdImageFile, &dataBuffer[dataBufferSize - numSectors * 0x200],
 				numSectors * 0x200, &numBytesWritten, 0);
 

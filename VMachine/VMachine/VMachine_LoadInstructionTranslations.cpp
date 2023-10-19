@@ -1558,7 +1558,7 @@ void VMachine::LoadInstructionTranslations(WORD resourceID)
 
 	if(!GetResourcePtrAndSize(resourceID, helperData, helperSize))
 		throw Ex("Internal Error: Unable to access resource " +
-			boost::lexical_cast<std::string>(resourceID));
+			std::to_string(resourceID));
 
 	//Read the data
 	std::vector <Byte> fileData(helperData, helperData + helperSize);
@@ -1567,7 +1567,7 @@ void VMachine::LoadInstructionTranslations(WORD resourceID)
 	if(fileData.size() < sizeof(ElfHeader))
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" is not a valid ELF object file");
 	}
 
@@ -1582,7 +1582,7 @@ void VMachine::LoadInstructionTranslations(WORD resourceID)
 		header.type != 0x0001 || header.machine != 0x0003)
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" is not a valid ELF object file");
 	}
 
@@ -1590,7 +1590,7 @@ void VMachine::LoadInstructionTranslations(WORD resourceID)
 	if(header.shEntrySize != sizeof(ElfSectionHeader))
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" has an unsupported section header entry size");
 	}
 

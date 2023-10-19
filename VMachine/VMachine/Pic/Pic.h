@@ -9,7 +9,7 @@
 
 class VMachine;
 
-class Pic : private boost::noncopyable
+class Pic
 {
 public:
 

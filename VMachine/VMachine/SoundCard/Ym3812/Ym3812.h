@@ -9,7 +9,7 @@
 
 class Ym3812Channel;
 
-class Ym3812 : private boost::noncopyable
+class Ym3812
 {
 public:
 
@@ -69,6 +69,6 @@ private:
 
 #ifdef USE_YM3812_CHANNEL
 	//FM channels
-	boost::shared_ptr<Ym3812Channel> channels[9];
+	std::shared_ptr<Ym3812Channel> channels[9];
 #endif
 };

@@ -23,7 +23,7 @@ Ym3812::Ym3812(Dword clockRate, Dword samplingRate)
 
 #ifdef USE_YM3812_CHANNEL
 	for(int i = 0; i < 9; ++i)
-		channels[i] = boost::shared_ptr<Ym3812Channel>(
+		channels[i] = std::shared_ptr<Ym3812Channel>(
 			new Ym3812Channel(static_cast<double>(clockRate) / samplingRate));
 #endif
 }

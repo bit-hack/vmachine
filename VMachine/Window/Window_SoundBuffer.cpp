@@ -30,7 +30,7 @@ SoundBufferData Window::LockSoundBuffer(Dword frameNumber)
 	}
 
 	//Otherwise, lock the number of samples played since the last call
-	Dword playCursor;
+	DWORD playCursor;
 	soundBuffer->GetCurrentPosition(&playCursor, 0);
 	playCursor /= 4;
 

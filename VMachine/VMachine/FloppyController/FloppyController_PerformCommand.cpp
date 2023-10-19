@@ -50,7 +50,7 @@ void FloppyController::PerformCommand(void)
 
 			SetFilePointer(imageFile, imageFileOffset, 0, FILE_BEGIN);
 
-			Dword numBytesRead;
+			DWORD numBytesRead;
 			ReadFile(imageFile, &dataBuffer[0], numBytes, &numBytesRead, 0);
 
 			//Copy the data to memory
@@ -117,7 +117,7 @@ void FloppyController::PerformCommand(void)
 			//TODO: Overlapped I/O
 			SetFilePointer(imageFile, imageFileOffset, 0, FILE_BEGIN);
 
-			Dword numBytesWritten;
+			DWORD numBytesWritten;
 			WriteFile(imageFile, &dataBuffer[0], numBytes, &numBytesWritten, 0);
 
 			success = true;

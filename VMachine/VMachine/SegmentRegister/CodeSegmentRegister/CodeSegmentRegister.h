@@ -13,7 +13,7 @@ class CodeSegmentRegister : public SegmentRegister
 {
 public:
 
-	CodeSegmentRegister(const boost::shared_ptr<Registers> & registers_,
+	CodeSegmentRegister(const std::shared_ptr<Registers> & registers_,
 						SegmentRegisterData & data_)
 		: registers(registers_), SegmentRegister(data_)
 	{}
@@ -33,5 +33,5 @@ public:
 private:
 
 	//Registers of the VMachine this segment register is part of
-	boost::shared_ptr<Registers> registers;
+	std::shared_ptr<Registers> registers;
 };

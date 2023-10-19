@@ -42,7 +42,7 @@ void Window::CreateSoundBuffer(void)
 	tempSoundBuffer->Release();
 
 	//Zero the contents of the sound buffer
-	Dword numSoundBufferBytes;
+	DWORD numSoundBufferBytes;
 	void * soundBufferDataPtr;
 
 	if(FAILED(soundBuffer->Lock(0, 0, &soundBufferDataPtr, &numSoundBufferBytes, 0, 0, DSBLOCK_ENTIREBUFFER)))

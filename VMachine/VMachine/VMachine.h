@@ -6,6 +6,7 @@
 //	http://www.paulsprojects.net/NewBSDLicense.txt)
 
 #pragma once
+#include <memory>
 
 #include "x86Constants.h"
 #include "Registers.h"
@@ -28,7 +29,7 @@ class IdeController;
 class VideoCard;
 class SoundCard;
 
-class VMachine : private boost::noncopyable
+class VMachine
 {
 public:
 
@@ -212,11 +213,11 @@ private:
 	{
 		Byte * translation;
 		Dword endPhysicalEip;
-		stdext::hash_map <Dword, Dword> immDwordOffsets;
+		std::unordered_map <Dword, Dword> immDwordOffsets;
 	};
 
-	typedef stdext::hash_map <EipToTranslationCacheMapKey,
-		boost::shared_ptr<EipToTranslationCacheMapValue>,
+	typedef std::unordered_map <EipToTranslationCacheMapKey,
+		std::shared_ptr<EipToTranslationCacheMapValue>,
 			HashEipToTranslationCacheMapKey>
 					EipToTranslationCacheMapType;
 
@@ -226,7 +227,7 @@ private:
 	struct EipToTranslationCacheTLBEntry
 	{
 		EipToTranslationCacheMapKey key;
-		boost::shared_ptr <EipToTranslationCacheMapValue> value;
+		std::shared_ptr <EipToTranslationCacheMapValue> value;
 	};
 
 	static const Dword eipToTranslationCacheTLBSize = 0x1000;	//Must be a power of 2
@@ -237,7 +238,7 @@ private:
 
 	//Physical eips for which translations exist, by page
 	typedef std::list < std::pair < EipToTranslationCacheMapKey, 
-		boost::shared_ptr<EipToTranslationCacheMapValue> > >
+		std::shared_ptr<EipToTranslationCacheMapValue> > >
 			PageTranslationListType;
 	
 	std::vector <PageTranslationListType> pageTranslationLists;
@@ -419,7 +420,7 @@ private:
 	void ClearWriteTLBsFlag(Dword physicalPage, Dword flag);
 
 	//CPU registers
-	const boost::shared_ptr<Registers> registers;
+	const std::shared_ptr<Registers> registers;
 
 	CodeSegmentRegister r_cs;
 	DataSegmentRegister r_ds, r_es, r_fs, r_gs;
@@ -559,14 +560,14 @@ private:
 	void OutputDword(Word address, Dword data);
 
 	//Other components
-	boost::scoped_ptr<Pic> masterPic, slavePic;
-	boost::scoped_ptr<DmaController> dmaController;
-	boost::scoped_ptr<Pit> pit;
-	boost::scoped_ptr<KeyboardController> keyboardController;
-	boost::scoped_ptr<FloppyController> floppyController;
-	boost::scoped_ptr<IdeController> ideController;
-	boost::scoped_ptr<VideoCard> videoCard;
-	boost::scoped_ptr<SoundCard> soundCard;
+	std::unique_ptr<Pic> masterPic, slavePic;
+	std::unique_ptr<DmaController> dmaController;
+	std::unique_ptr<Pit> pit;
+	std::unique_ptr<KeyboardController> keyboardController;
+	std::unique_ptr<FloppyController> floppyController;
+	std::unique_ptr<IdeController> ideController;
+	std::unique_ptr<VideoCard> videoCard;
+	std::unique_ptr<SoundCard> soundCard;
 
 public:
 

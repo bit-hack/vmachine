@@ -9,7 +9,7 @@
 
 class Ym3812Operator;
 
-class Ym3812Channel : private boost::noncopyable
+class Ym3812Channel
 {
 public:
 
@@ -42,5 +42,5 @@ private:
 	double feedbackData;
 
 	//Operators
-	boost::shared_ptr<Ym3812Operator> operators[2];
+	std::shared_ptr<Ym3812Operator> operators[2];
 };

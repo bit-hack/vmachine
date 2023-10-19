@@ -9,7 +9,7 @@
 
 class VMachine;
 
-class DmaController : private boost::noncopyable
+class DmaController
 {
 public:
 

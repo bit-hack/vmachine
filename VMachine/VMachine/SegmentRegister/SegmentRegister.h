@@ -7,7 +7,7 @@
 
 #pragma once
 
-class SegmentRegister : private boost::noncopyable
+class SegmentRegister
 {
 public:
 

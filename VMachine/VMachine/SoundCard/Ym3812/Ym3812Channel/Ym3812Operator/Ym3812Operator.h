@@ -7,7 +7,7 @@
 
 #pragma once
 
-class Ym3812Operator : private boost::noncopyable
+class Ym3812Operator
 {
 public:
 

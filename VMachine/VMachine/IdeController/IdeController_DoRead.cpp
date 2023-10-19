@@ -21,7 +21,7 @@ void IdeController::DoRead(Word numSectors)
 	//TODO: Overlapped I/O
 	SetFilePointer(hdImageFile, imageFileOffset, 0, FILE_BEGIN);
 
-	Dword numBytesRead;
+	DWORD numBytesRead;
 	ReadFile(	hdImageFile, &dataBuffer[dataBufferSize - numSectors * 0x200],
 				numSectors * 0x200, &numBytesRead, 0);
 

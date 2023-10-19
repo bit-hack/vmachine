@@ -10,7 +10,7 @@
 #include "../Resources/resource.h"
 
 //Constructor
-Window::Window(const boost::shared_ptr<VMachine> & vmachine_, Dword width_, Dword height_)
+Window::Window(const std::shared_ptr<VMachine> & vmachine_, Dword width_, Dword height_)
 	:	vmachine(vmachine_), width(width_), height(height_),
 		style(WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX), exStyle(0),
 		hWnd(0), d3d(0), d3dDevice(0),

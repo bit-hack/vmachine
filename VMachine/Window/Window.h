@@ -9,12 +9,12 @@
 
 class VMachine;
 
-class Window : private boost::noncopyable
+class Window
 {
 public:
 
 	//Constructor/Destructor
-	Window(const boost::shared_ptr<VMachine> & vmachine_, Dword width_, Dword height_);
+	Window(const std::shared_ptr<VMachine> & vmachine_, Dword width_, Dword height_);
 	~Window(void);
 	
 	//Copy constructor/Copy assignment operator handled by boost::noncopyable
@@ -38,7 +38,7 @@ public:
 private:
 
 	//VMachine associated with this window
-	boost::shared_ptr<VMachine> vmachine;
+	std::shared_ptr<VMachine> vmachine;
 
 	//Window procedure. Calls the non-static MsgProc
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -96,9 +96,9 @@ private:
 	bool soundBufferStarted;
 	Dword writeCursor;
 	Dword lastLockPlayCursor;
-	
+
 	//Sound buffer locked region
-	Dword lockNumBytes1, lockNumBytes2;
+	DWORD lockNumBytes1, lockNumBytes2;
 	void * lockPtr1;
 	void * lockPtr2;
 

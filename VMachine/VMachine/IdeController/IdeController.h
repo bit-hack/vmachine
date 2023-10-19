@@ -15,7 +15,7 @@ struct HardDiskGeometry
 	Dword numSectorsTotal;
 };
 
-class IdeController : private boost::noncopyable
+class IdeController
 {
 public:
 

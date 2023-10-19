@@ -7,7 +7,7 @@
 
 #pragma once
 
-class Timer : private boost::noncopyable
+class Timer
 {
 public:
 

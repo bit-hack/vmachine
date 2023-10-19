@@ -10,7 +10,7 @@
 class Pic;
 class DmaController;
 
-class FloppyController : private boost::noncopyable
+class FloppyController
 {
 public:
 

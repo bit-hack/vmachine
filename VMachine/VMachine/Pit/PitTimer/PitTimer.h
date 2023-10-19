@@ -9,7 +9,7 @@
 
 class Pic;
 
-class PitTimer : private boost::noncopyable
+class PitTimer
 {
 public:
 

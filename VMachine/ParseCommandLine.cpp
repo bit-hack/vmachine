@@ -40,17 +40,12 @@ void ParseCommandLine(	const std::string & commandLine,
 		//If this word is a recognised argument, get the filename from the next word
 		if((iWord + 1) != commandWords.end())
 		{
-			try
-			{
-				if(*iWord == "-mem")
-					memorySize = boost::lexical_cast<Dword>(*(iWord + 1));
-			}
-			catch(boost::bad_lexical_cast &)
-			{
-				memorySize = 0;
+			memorySize = 0;
+			if (*iWord == "-mem") {
+				memorySize = std::stoi(*(iWord + 1));
 			}
 
-            if(*iWord == "-fdimg")
+			if(*iWord == "-fdimg")
 				fdimgFilename = *(iWord + 1);
 
 			if(*iWord == "-hdimg")

@@ -11,7 +11,7 @@
 
 class VMachine;
 
-class Pit : private boost::noncopyable
+class Pit
 {
 public:
 

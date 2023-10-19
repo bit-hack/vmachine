@@ -10,7 +10,7 @@
 class VMachine;
 class Pic;
 
-class KeyboardController : private boost::noncopyable
+class KeyboardController
 {
 public:
 

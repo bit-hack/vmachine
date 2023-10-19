@@ -13,8 +13,8 @@
 Ym3812Channel::Ym3812Channel(double clocksPerSample_)
 	:	algorithm(0), feedback(0.0), feedbackData(0.0)
 {
-	operators[0] = boost::shared_ptr<Ym3812Operator>(new Ym3812Operator(clocksPerSample_));
-	operators[1] = boost::shared_ptr<Ym3812Operator>(new Ym3812Operator(clocksPerSample_));
+	operators[0] = std::shared_ptr<Ym3812Operator>(new Ym3812Operator(clocksPerSample_));
+	operators[1] = std::shared_ptr<Ym3812Operator>(new Ym3812Operator(clocksPerSample_));
 }
 
 //Destructor

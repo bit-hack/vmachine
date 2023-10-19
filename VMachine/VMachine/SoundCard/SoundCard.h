@@ -13,7 +13,7 @@ class DmaController;
 class Ym3812;
 class DigitalSoundProcessor;
 
-class SoundCard : private boost::noncopyable
+class SoundCard
 {
 public:
 
@@ -33,8 +33,8 @@ public:
 private:
 
 	//YM3812 FM synthesizer
-	boost::scoped_ptr<Ym3812> ym3812;
+	std::unique_ptr<Ym3812> ym3812;
 
 	//Digital Audio Controller
-	boost::scoped_ptr<DigitalSoundProcessor> dsp;
+	std::unique_ptr<DigitalSoundProcessor> dsp;
 };

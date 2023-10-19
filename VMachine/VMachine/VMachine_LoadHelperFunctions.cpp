@@ -17,7 +17,7 @@ void VMachine::LoadHelperFunctions(WORD resourceID)
 
 	if(!GetResourcePtrAndSize(resourceID, helperData, helperSize))
 		throw Ex("Internal Error: Unable to access resource " +
-			boost::lexical_cast<std::string>(resourceID));
+			std::to_string(resourceID));
 
 	//Copy the data into a temporary vector
 	std::vector <char> tempHelperFunctions;
@@ -28,7 +28,7 @@ void VMachine::LoadHelperFunctions(WORD resourceID)
 	if(tempHelperFunctions.size() < sizeof(ElfHeader))
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" is not a valid ELF object file");
 	}
 
@@ -43,7 +43,7 @@ void VMachine::LoadHelperFunctions(WORD resourceID)
 		header.type != 0x0001 || header.machine != 0x0003)
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" is not a valid ELF object file");
 	}
 
@@ -60,7 +60,7 @@ void VMachine::LoadHelperFunctions(WORD resourceID)
 	if(header.shEntrySize != sizeof(ElfSectionHeader))
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" has an unsupported section header entry size");
 	}
 
@@ -98,14 +98,14 @@ void VMachine::LoadHelperFunctions(WORD resourceID)
 	if(stringTableSection == 0xffffffff)
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" has no \".strtab\" section");
 	}
 
 	if(symbolTableSection == 0xffffffff)
 	{
 		throw Ex("Internal Error: File " +
-			boost::lexical_cast<std::string>(resourceID) +
+			std::to_string(resourceID) +
 				" has no \".symtab\" section");
 	}
 
