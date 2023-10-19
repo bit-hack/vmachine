@@ -21,8 +21,8 @@ IdeController::IdeController(	const std::string & hdImageFilename,
 										writeOffset(dataBufferSize)
 {
 	//Open the hard disk image file
-	hdImageFile = CreateFile(	hdImageFilename.c_str(), FILE_ALL_ACCESS, 0, 0,
-								OPEN_EXISTING, 0, 0);
+	hdImageFile = CreateFileA(	hdImageFilename.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, nullptr,
+								OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	
 	if(hdImageFile == INVALID_HANDLE_VALUE)
 		throw Ex("Internal Error: CreateFile [" + hdImageFilename + "] failed");

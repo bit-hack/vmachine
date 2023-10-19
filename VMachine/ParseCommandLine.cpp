@@ -40,7 +40,6 @@ void ParseCommandLine(	const std::string & commandLine,
 		//If this word is a recognised argument, get the filename from the next word
 		if((iWord + 1) != commandWords.end())
 		{
-			memorySize = 0;
 			if (*iWord == "-mem") {
 				memorySize = std::stoi(*(iWord + 1));
 			}

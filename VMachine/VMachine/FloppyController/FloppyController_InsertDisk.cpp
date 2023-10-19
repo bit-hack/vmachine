@@ -14,8 +14,8 @@ void FloppyController::InsertDisk(const std::string & imageFilename)
 	EjectDisk();
 
 	//Open the disk image file
-	HANDLE tempImageFile = CreateFile(	imageFilename.c_str(), FILE_ALL_ACCESS, 0, 0,
-										OPEN_EXISTING, 0, 0);
+	HANDLE tempImageFile = CreateFile(	imageFilename.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, nullptr,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	
 	if(tempImageFile == INVALID_HANDLE_VALUE)
 		throw Ex("Internal Error: CreateFile [" + imageFilename + "] failed");
