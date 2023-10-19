@@ -1,0 +1,37 @@
+VMachine Compatibility
+======================
+
+Operating Systems
+-----------------
+
+              Name              | Runs? | Comments
+--------------------------------------------------------------------------
+DLX Linux (shell = bash)		| Yes	|
+FreeDOS 1.0						| Yes	|
+MS-DOS 6.22						| Yes	|
+QEMU Linux (shell = sh)			| Yes	| Several warnings and a long pause on startup
+Windows 95 Setup				| Yes	|
+Windows 95						| Yes	|
+Windows 98 Setup				| No	| 
+
+Applications
+------------
+
+              Name              |         OS	        | Runs? | Comments
+--------------------------------+-----------------------+-------+---------
+Blood							| MS-DOS 6.22			| No	| Hangs on startup
+Command & Conquer				| MS-DOS 6.22			| Yes	|
+Commander Keen					| MS-DOS 6.22			| Yes	|
+Commander Keen 6				| MS-DOS 6.22			| Yes	| Graphics flicker
+Doom							| MS-DOS 6.22			| Yes	|
+Duke Nukem 3D					| MS-DOS 6.22			| Yes	| Runs slowly due to PIT emulation inaccuracies
+Fantasy World Dizzy				| MS-DOS 6.22			| Yes	|
+Genecyst (Genesis Emulator)		| MS-DOS 6.22			| Yes	|
+Grand Theft Auto (8-bit)		| MS-DOS 6.22			| No	| Exits with "Error 8" - no VESA support found
+Lemmings						| MS-DOS 6.22			| Yes	| Level layouts incorrect, VGA version uses incorrect palette
+Massage (Master System Emulator)| MS-DOS 6.22			| Yes	|
+Quake							| MS-DOS 6.22			| Yes	|
+The Secret of Monkey Island		| MS-DOS 6.22			| Yes	|
+Spit Wad Willy					| MS-DOS 6.22			| Yes	| Runs far too fast
+Tomb Raider						| MS-DOS 6.22			| Yes	|
+Worms							| MS-DOS 6.22			| Yes	| Does not start up if the BLASTER environment variable is set

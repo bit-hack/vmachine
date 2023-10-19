@@ -1,0 +1,23 @@
+VMachine
+========
+
+Build Instructions
+------------------
+
+Requirements
+------------
+
+Microsoft Visual C++ .NET 2003
+nasm (tested with nasm 0.98.39) http://nasm.sourceforge.net
+Borland C++ 3.1
+MinGW GCC (tested with gcc-core 3.4.2 and 3.4.5) http://www.mingw.org
+
+Instructions
+------------
+
+1.	Build the PadFile and VDisk tools, in \Tools, using Visual C++.
+2.	Type "make" in \BIOS\BIOS to compile the BIOS. Borland C++ will compile all of the C source files, but will not exit properly, causing the build process to end prematurely. Type "make" again to complete the building of the BIOS.
+3.	Repeat step 2 in \BIOS\VGABIOS to build the VGA BIOS.
+4.	Type "make" in \VMachine\VMachine\Instructions to build the function implementations of CPU instructions, using GCC.
+5.	Type "make" in "\VMachine\VMachine\Helper Functions" to build the CPU helper functions.
+6.	Open the main VMachine project from \VMachine in Visual C++, and select "Build Solution".

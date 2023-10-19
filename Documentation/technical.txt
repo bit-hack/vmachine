@@ -1,0 +1,167 @@
+VMachine
+========
+
+Technical Information
+---------------------
+
+1 CPU
+	1.1 Binary Translation
+		1.1.1 Basic Blocks
+		1.1.2 The Translation Process
+		1.1.3 Translation Caching
+	1.2 Control transfer
+		1.2.1 Conditional jumps
+	1.3 Exceptions
+	1.4 Floating Point Emulation
+2 Memory Access
+	2.1 Paging Disabled
+3 Other Hardware
+4 BIOS
+5 Implementation
+
+1 CPU
+-----
+
+The virtual CPU primarily uses the method of "binary translation", also known as "dynamic recompilation" for speed, although certain instructions cause it to fall back to interpretive emulation.
+
+1.1 Binary Translation
+----------------------
+
+The virtual CPU executes guest instructions by translating them into instructions which can be executed on the host.
+These translations can then be executed on the host CPU, where they will update the guest registers, memory contents and I/O devices.
+
+1.1.1 Basic Blocks
+------------------
+
+The translation works on the basic block level.
+A basic block is a linear sequence of instructions, with no control transfer instructions (jumps, calls etc) out of the block (except possibly as the final instruction of the block).
+Thus, if the guest begins executing a basic block, it will always (barring exceptions) execute the entire block.
+This block can therefore be translated into a single block of host code.
+
+1.1.2 The Translation Process
+-----------------------------
+
+The translation process uses one of two methods.
+Most guest instructions are broken down into a sequence of "MicroOp"s, simple instructions, acting upon the host's registers.
+Sequences of guest code are thus converted into sequences of MicroOps.
+These are then converted into host code.
+
+Some more complex instructions, such as ENTER, are translated in a different way.
+C function implementations of these instructions have been written, and these are compiled into object files which the application loads.
+On encountering such an instruction in the code to be translated, the compiled object code in inserted into the translation, with the necessary fixups applied to allow access to guest registers, constants etc.
+
+1.1.3 Translation Caching
+-------------------------
+
+Translations are cached, so that if the same block of code requires executing again, it does not need to be retranslated.
+The translations are stored in a 16MB cache, and pointers to them are stored in a map.
+Given the value of the guest instruction pointer and some flags, the cached translation to be executed (if it exists) can easily be found.
+This lookup is accelerated further by the use of a translation lookaside buffer (TLB), which stores pointers to the most recently used translations.
+If the cache becomes full, it is cleared completely.
+
+Translations in the cache may become invalid due to the guest code on which they are based being overwritten.
+In order to ensure that translations are removed from the cache when this occurs, an array is maintained storing the state of each page of guest memory.
+If a memory write is performed to a page which contains translations, the function "VMachine::InvalidateCodeTranslations" is called.
+This performs one of two actions - either it invalidates all translations from the given page, or it only invalidates those which intersect the exact memory range being written.
+Which occurs depends on the frequency of writes to the given page, since if many writes occur, invalidating the whole page will mean that in future, InvalidateCodeTranslations need not be called.
+
+The translations are dependent on several states within the guest processor, for example, the default stack pointer size (16- or 32- bit).
+If one of these states changes, care must be taken to avoid using a translation compiled when the states were different.
+Since these states must be constant throughout a translation, any instructions which change these states are not added to a translation - they are emulated using interpretation.
+
+1.2 Control transfer
+--------------------
+
+Control transfer instructions require execution to be switched from one translated basic block to another.
+At the end of a basic block which ends in a control transfer instruction, control is passed from the translation to a helper function, "JumpToNextTranslation".
+This finds the next basic block to execute by looking up the current processor state and instruction pointer in a TLB, and jumps directly to the translation for this block, if it exists.
+If the translation does not exist, it returns to VMachine to perform the necessary translation.
+
+For control transfer instructions which always branch to the same location (for example, direct jumps and calls), an optimisation is possible.
+A second helper function, "JumpToNextTranslationWithPatch" is used instead of "JumpToNextTranslation".
+As well as finding and jumping to the next translation, this function patches the source translation to perform a direct jump to the next translation in future, thus avoiding a call to any helper function.
+Note that this patching can only be performed to jumps which remain within a single page of guest memory, since it is possible to change the destination of a direct jump to a different page by simply changing the page tables.
+If JumpToNextTranslationWithPatch finds a jump which leads to a different page, it can never be patched with a direct jump, so instead is patched to call "JumpToNextTranslation" instead, thus avoiding the overhead of the (doomed to failure) patch attempt on future executions.
+
+1.2.1 Conditional jumps
+-----------------------
+
+Conditional jumps are handled in a very similar way to unconditional jumps - they are converted into two unconditional jumps, one used when the condition is true and one when it is false.
+Each of these may be patched individually.
+
+1.3 Exceptions
+--------------
+
+Sometimes guest code is expected to cause an exception, and this must be refllected in the generated host code.
+This is done in two ways.
+
+Some exceptions, such as page faults, are purely characteristics of the guest code and must be simulated in the translations.
+In this case, the translation contains an explicit check for the conditions which would cause an exception and, if they are met, saves information about the exception and returns immediately to VMachine, without executing the remaninder of the translation.
+
+Other exceptions, such as divide-by-zero, happen very infrequently (compared to the frequency of division instructions), so adding an explicit check for a zero divisor would introduce a performance penalty.
+In this case, we can cause the performance overhead to occur only when an exception occurs by letting the division happen without checking the divisor.
+In order to catch the divide-by-zero exception which will be produced on the host in this case, all execution of translations is wrapped in a structured exception handling (SEH) __try/__except block.
+The __except clause catches the exception, and changes the guest state accordingly.
+
+Exceptions may cause execution of a single translation to be exited before it completes.
+Thus, the state of the guest CPU must be up-to-date at any point where an exception could occur.
+For example, it is not sufficient to simply update the guest's instruction pointer at the end of a translation, since the update may never be reached.
+However, updating the guest's instruction pointer after executing the translation of every guest instruction would cause poor performance, especially considering that some guest instructions are translated into a single host instruction.
+So, a compromise is made - the instruction pointer is updated only when the next guest instruction may cause an exception.
+This still requires many updates to the instruction pointer however, since any instruction which accesses memory may cause an exception (e.g., a page fault).
+
+1.4 Floating Point Emulation
+----------------------------
+
+VMachine emulates the guest's floating point unit (FPU) by using the host FPU directly.
+The VMachine emulator maintains two floating point contexts, storing the entire state of the FPU.
+The "host" context is used when executing the VMachine program itself.
+Immediately before executing a translation, a small assembly function uses the FXSAVE/FXRSTOR instructions to switch the host FPU to the "guest" context.
+Guest instructions which involve calculations internal to the FPU can thus simply be executed on the host, without any translation required, and those which access memory can be translated by simply adding guest memory accesses.
+Floating point exceptions are handled using the SEH mechanism described above.
+On returning from the guest code to the application, the host FPU context is restored.
+
+2 Memory Access
+---------------
+
+Whenever the guest code accesses memory, the translation includes a call to a helper function.
+There are many of these helper functions to deal with different memory access types, sizes and processor modes.
+Consider the helper function "WriteDwordUserMode", one of the more complicated memory access functions.
+
+WriteDwordUserMode itself is written in assembly language for speed.
+Firstly, it ensures that the memory access does not cross a page boundary.
+If it does, it is broken up into smaller accesses.
+The function then uses a translation lookaside buffer (TLB) to perform virtual-to-physical address translation.
+As well as the corresponding physical address, the TLB entry contains bits describing the state of the memory page.
+If the TLB lookup fails, or if the physical page is not a simple, writable memory page (for example, it contains translations, or is used of memory-mapped I/O), further functions are called to handle this.
+In the case of a successful TLB lookup, the data can now be written to guest memory and emulation can continue.
+WriteDwordUserMode handles this simple case in 14 x86 instructions.
+
+Note that, for performance reasons, no check is made to ensure that the segment limit or access rights are suitable for the memory access being carried out.
+
+2.1 Paging Disabled
+-------------------
+
+When the guest CPU has paging disabled, the TLB contains an identity mapping from virtual to physical address.
+The TLB is still used as for when paging is enabled, since the page state information is still required.
+
+3 Other Hardware
+----------------
+
+VMachine also emulates a generic floppy disk, IDE hard disk and a VGA graphics card, along with the necessary support chips (interrupt controller, DMA controller and timer).
+Also supported is a Sound Blaster sound card, which uses the YM3812 FM chip emulation module from MAME.
+
+4 BIOS
+------
+
+VMachine includes a custom system BIOS and VGA BIOS.
+
+5 Implementation
+----------------
+
+The majority of VMachine is written in C++, using both the C++ standard library and some elements of Boost.
+It uses standard Win32 API functions to handle windowing and input, and DirectX 9 to handle the framebuffer display and sound output, and is compiled using Microsoft Visual C++ .NET 2003.
+
+The function implementations of CPU instructions are written in C, and compiled using GCC.
+
+The BIOSes are primarily written in C and compiled using the Borland C++ 3.1 16-bit compiler, but also include some parts written in 16-bit 8086 assembly language.

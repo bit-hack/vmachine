@@ -1,0 +1,118 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       ID_FILE_EXIT
+    END
+    POPUP "F&loppy"
+    BEGIN
+        MENUITEM "&Insert...",                  ID_FLOPPY_INSERT
+        MENUITEM "&Eject",                      ID_FLOPPY_EJECT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About VMachine",             ID_HELP_ABOUTVMACHINE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// BINARY
+//
+
+IDR_BIOS                BINARY                  "BIOS.BIN"
+IDR_VGABIOS             BINARY                  "VGABIOS.BIN"
+IDR_HELPER              BINARY                  "HelperFunctions.elf"
+IDR_BINARITHINSTR       BINARY                  "BinaryArithmeticInstructions.elf"
+IDR_BITBYTEINSTR        BINARY                  "BitByteInstructions.elf"
+IDR_DATATRANSFERINSTR   BINARY                  "DataTransferInstructions.elf"
+IDR_DECARITHINSTR       BINARY                  "DecimalArithmeticInstructions.elf"
+IDR_FLAGCONTROLINSTR    BINARY                  "FlagControlInstructions.elf"
+IDR_FPUINSTR            BINARY                  "FpuInstructions.elf"
+IDR_MISCINSTR           BINARY                  "MiscInstructions.elf"
+IDR_NEARCONTROLINSTR    BINARY                  "NearControlTransferInstructions.elf"
+IDR_SEGREGINSTR         BINARY                  "SegmentRegisterInstructions.elf"
+IDR_SHIFTINSTR          BINARY                  "ShiftAndRotateInstructions.elf"
+IDR_STRINGINSTR         BINARY                  "StringInstructions.elf"
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

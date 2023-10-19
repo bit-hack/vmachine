@@ -1,0 +1,40 @@
+VMachine Performance Figures
+============================
+
+Benchmarks:
+-----------
+
+1:	Name:			Doom (MS-DOS 6.22)
+	Description:	timedemo demo1
+	Result:			Frames per second
+
+2:	Name:			Quake (MS-DOS 6.22)
+	Description:	quake -safe; timedemo demo1; 320x200
+	Result:			Frames per second
+
+3:	Name:			nbench (QEMU Linux)
+	Description:	nbench
+	Result:			Memory, Integer and Floating point performance, relative to an AMD K6/233
+
+Results:
+--------
+
+All VMachine performance figures were obtained on an AMD Athlon XP 2000+ (1666MHz).
+
+				"Hardware"							|	1		|	2		|				3				|
+=============================================================================================================
+Pentium 75, 16MB RAM								|	28.0	|	17.6	|								|
+Celeron 400, 192MB RAM								|	82.2	|	81.1	|	1.800	1.671	3.567 (1)	|
+AMD Athlon XP 2000+, 768MB RAM						|	117.0	|	258.5	|								|
+-------------------------------------------------------------------------------------------------------------
+Microsoft Virtual PC on Celeron 400					|	7.8		|	22.6	|								|
+DOSBOX, 12000 cycles (max CPU on XP 2000+)			|	12.2	|	4.7		|								|
+Bochs 2.2.6, (clock:realtime) on Athlon XP 2000+	|	11.8	|	3.9		|	0.112	0.078	0.067		|
+QEMU 0.80 on Athlon XP 2000+						|	26.8	|	21.5 (2)|								|
+QEMU 0.81 on Athlon XP 2000+						|	33.7	|	24.3	|	0.651	0.734	0.839		|
+-------------------------------------------------------------------------------------------------------------
+VMachine 0.1.0										|	33.6	|	16.7	|	0.398	0.330	3.469 (3)	|
+
+(1)	Operating system used: Ubuntu 5.10 (Live CD) with Gnome 2.12.1
+(2)	Test performed from within Windows 95
+(3)	At least one test displays a warning about not being "95% statistically certain"

@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BIOS", "BIOS.vcproj", "{F2850E6C-53FE-48C2-8B83-6F2A4EB5F69D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F2850E6C-53FE-48C2-8B83-6F2A4EB5F69D}.Debug.ActiveCfg = Debug|Win32
+		{F2850E6C-53FE-48C2-8B83-6F2A4EB5F69D}.Debug.Build.0 = Debug|Win32
+		{F2850E6C-53FE-48C2-8B83-6F2A4EB5F69D}.Release.ActiveCfg = Release|Win32
+		{F2850E6C-53FE-48C2-8B83-6F2A4EB5F69D}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
